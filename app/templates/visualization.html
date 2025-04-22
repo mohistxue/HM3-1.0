@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>健康数据可视化</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .chart-container {
+            margin-bottom: 40px;
+        }
+        .chart-title {
+            color: #666;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>健康数据可视化</h1>
+        
+        <div class="chart-container">
+            <div class="chart-title">健康趋势分析</div>
+            <img id="trends-chart" alt="健康趋势图">
+        </div>
+        
+        <div class="chart-container">
+            <div class="chart-title">健康指标相关性分析</div>
+            <img id="correlation-chart" alt="相关性图">
+        </div>
+        
+        <div class="chart-container">
+            <div class="chart-title">健康指标分布分析</div>
+            <img id="distribution-chart" alt="分布图">
+        </div>
+    </div>
+
+    <script>
+        // 获取用户ID（这里暂时写死为1）
+        const userId = 1;
+
+        // 加载趋势图
+        fetch(`/api/health/visualization/trends/${userId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    document.getElementById('trends-chart').src = `data:image/png;base64,${data.image}`;
+                }
+            });
+
+        // 加载相关性图
+        fetch(`/api/health/visualization/correlation/${userId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    document.getElementById('correlation-chart').src = `data:image/png;base64,${data.image}`;
+                }
+            });
+
+        // 加载分布图
+        fetch(`/api/health/visualization/distribution/${userId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    document.getElementById('distribution-chart').src = `data:image/png;base64,${data.image}`;
+                }
+            });
+    </script>
+</body>
+</html> 
